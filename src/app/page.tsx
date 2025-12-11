@@ -1,5 +1,5 @@
 import Index from "@/components/Dashboard";
-import DefaultLayout from "@/components/Layout/DefaultLayout";
+import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
