@@ -8,11 +8,13 @@ const UserSchema = new Schema(
       unique: true,
     },
 
-    fullName: {
-      type: String,
-      required: true,
-      unique: false,
-    },
+    // fullName: {
+    //   type: String,
+    //   required: true,
+    //   unique: false,
+    //   default: "",
+    //   trim: true,
+    // },
 
     photo: {
       type: String,
@@ -37,7 +39,7 @@ const UserSchema = new Schema(
     },
 
     userBio: {
-      type: Boolean,
+      type: String,
       default: "",
     },
     verificationToken: String,
