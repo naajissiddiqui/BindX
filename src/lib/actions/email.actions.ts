@@ -1,3 +1,4 @@
+import { Resend } from "resend";
 export async function sendVerificationEmail(
   email: string,
   firstName: string,
