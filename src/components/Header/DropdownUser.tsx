@@ -1,14 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { use, useState } from "react";
 import { ChevronDown, LogOut, Settings, User2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useUser } from "@/app/context/UserContext";
+import { signOut } from "next-auth/react";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const router = useRouter();
+
+  const user = useUser();
+
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
+    router.push("/auth-page/signin");
+  };
 
   return (
     <div className="relative">
@@ -19,16 +28,16 @@ const DropdownUser = () => {
       >
         <span className="hidded text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {"John Doe"}
+            {user.firstName} {user.lastName}
           </span>
-          <span className=" block text-xs ">Drug researcher</span>
+          <span className=" block text-xs ">Researcher</span>
         </span>
 
         <span className="h-11 w-11 rounded-full ">
           <Image
             width={80}
             height={80}
-            src="/images/user/user-01.png"
+            src={user.photo}
             style={{
               width: "auto",
               height: "auto",
