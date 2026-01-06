@@ -5,6 +5,7 @@ import "@/css/style.css";
 import React, { useEffect, useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import { UserProvider } from "./context/UserContext";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -13,6 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js" />
       <body suppressHydrationWarning={true}>
         <SessionProvider>
           <UserProvider>{children}</UserProvider>
