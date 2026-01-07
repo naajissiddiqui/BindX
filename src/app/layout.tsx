@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js" />
+      {/* <Script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js" /> */}
       <body suppressHydrationWarning={true}>
         <SessionProvider>
           <UserProvider>{children}</UserProvider>
