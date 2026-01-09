@@ -12,8 +12,8 @@ const UserContext = createContext<any>(null);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const { data: session } = useSession();
   const [user, setUser] = useState({
-    firstName: "John",
-    lastName: "Doe",
+    firstName: "Log",
+    lastName: "in",
     photo: "/images/user/user-01.png",
     jobTitle: "Drug Researcher",
     userBio: "",

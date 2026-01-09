@@ -14,14 +14,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const client = new Ably.Realtime({
-    key: process.env.ABLY_API_KEY,
+    key: process.env.NEXT_PUBLIC_ABLY_API_KEY,
   });
   return (
     <html lang="en">
       {/* <Script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js" /> */}
       <body suppressHydrationWarning={true}>
         <SessionProvider>
-          <UserProvider>{children}</UserProvider>
+          <UserProvider>
+            <AblyProvider client={client}>
+              <ChannelProvider channelName="chat-demo1">
+                {children}
+              </ChannelProvider>
+            </AblyProvider>
+          </UserProvider>
         </SessionProvider>
       </body>
     </html>
