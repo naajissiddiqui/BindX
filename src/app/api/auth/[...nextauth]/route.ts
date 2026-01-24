@@ -1,8 +1,8 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { loginUser } from "@/lib/actions/user.actions";
 
-export const authOptions: NextAuthOptions = {
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -16,7 +16,6 @@ export const authOptions: NextAuthOptions = {
         const user = await loginUser(credentials.email, credentials.password);
         if (!user) return null;
 
-        // Must return a plain object
         return {
           id: user.id,
           email: user.email,
@@ -27,27 +26,20 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60,
   },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.sub = user.id; // use built-in field instead of custom "id"
-      }
+      if (user) token.sub = user.id;
       return token;
     },
     async session({ session, token }) {
       if (session.user && token.sub) {
-        session.user.name = session.user.name; // keep TS happy
-        (session.user as any).id = token.sub; // attach id without type error
+        (session.user as any).id = token.sub;
       }
       return session;
     },
   },
-
   secret: process.env.NEXTAUTH_SECRET,
-};
-
-const handler = NextAuth(authOptions);
+});
 
 export { handler as GET, handler as POST };
